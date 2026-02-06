@@ -1,0 +1,15 @@
+• Crash-inducing test case: qaM
+• Average number of test cases: 1540.4
+• Average number of test cases relative to Objective 3:  0.001245364781  times
+• Std. Dev. In number of test cases: 1037.423861
+• Std. dev. in number of test cases relative to Objective 3: 0.0006531360366  times
+• Average wall clock time: 4.585 seconds
+• Average wall clock time relative to Objective 3: 0.00417533049  times
+• Std. Dev. in wall clock time: 2.471280595 seconds
+• Std. Dev. in wall clock time relative to Objective 3: 0.001752184599 times
+• Pre question 1: Technically anything should be fine so long as its an incremental change to the seed. I change 1 char
+• Pre question 2: Small changes allows for more thourough exploration but runs the risk of getting stuck in a local optimum
+• Pre question 3: You can have a run time harness to view the PC itself, you can inline code checkers which add ot the code. The more invasive the more accurate but harder to implement
+• Pre question 4: It should descrase as its a more stragtegic search
+• Post question 1: It is dramaticlly faster at getting to the goal
+• Post question 2: In this case I would only use the most recent seed and not randomaly take from the seed pool

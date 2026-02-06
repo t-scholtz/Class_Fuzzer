@@ -1,0 +1,13 @@
+• Crash-inducing test case: qaM
+• Average number of test cases: 1578.7
+• Average number of test cases relative to Objective 4: 1.02 times
+• Std. Dev. In number of test cases: 802.0180173
+• Std. dev. in number of test cases relative to Objective 4: 0.77 times
+• Average wall clock time: 5.72 seconds
+• Average wall clock time relative to Objective 4: 1.24times
+• Std. Dev. in wall clock time: 2.31 seconds
+• Std. Dev. in wall clock time relative to Objective 4: 0.93 times
+• Pre question 1: I expect no real change. We are using the same test case which does not contain any loops.
+• Pre question 2: they should be relatively similar. The only difference is the 8 bit counter needs to load an edge tracker and append instead of setting to 1. It also probally needs an overflow check.
+• Post question 1: There results are slightly slower time wise, but farily similar in terms to number of test cases. This makes sense as we added some overhead to the process we are fuzzing but aren't getting anything extra out of it
+• Post question 2: Change it back to just use edge in this cases where there aren' any loops.

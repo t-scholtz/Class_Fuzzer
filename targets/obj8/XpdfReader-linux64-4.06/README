@@ -1,0 +1,27 @@
+XpdfReader
+==========
+
+version 4.06
+2025-nov-14
+
+http://www.xpdfreader.com/
+
+The XpdfReader software and documentation are
+copyright 1996-2025 Glyph & Cog, LLC.
+
+The PDF data structures, operators, and specification are
+documented in ISO 32000-2:2020.
+
+XpdfReader uses the following open source libraries:
+
+* Portions of this software are Copyright 2006-2025 David Turner,
+  Robert Wilhelm, and Werner Lemberg.  FreeType is used here under the
+  terms of the FreeType Project License.
+
+* Little CMS is Copyright 2025 Marti Maria Saguer.
+
+* The Qt Toolkit is Copyright 2025 The Qt Company Ltd.  Qt is used
+  here under the terms of the LGPL v2.1.
+
+Source code for all of those is available for download on the
+XpdfReader web site: http://www.xpdfreader.com/download.html

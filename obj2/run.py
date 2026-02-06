@@ -11,7 +11,7 @@ from fuzz import Fuzzer
 def main():
     parser = argparse.ArgumentParser(description='Basic black-box fuzzer')
     parser.add_argument('target', help='Path to the target binary')
-    parser.add_argument('--max-len', type=int, default=10, 
+    parser.add_argument('--max-len', type=int, default=20, 
                         help='Maximum length of test cases (default: 10)')
     parser.add_argument('--timeout', type=int, default=3600,
                         help='Fuzzing timeout in seconds (default: 3600)')

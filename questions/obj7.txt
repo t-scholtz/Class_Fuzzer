@@ -1,0 +1,14 @@
+• Crash-inducing test case:  b'qaM'
+• Average number of test cases: 1257.4
+• Std. Dev. In number of test cases: 880.0334
+• Average wall clock time: 4.57 seconds
+• Test case throughput (i.e., test cases per second): 275.14
+• Test case throughput relative to Objective 6: 1.091212946
+• Pre question 1: It will slow down / reduce the exploration of distint cases when they are added / broadend the search
+• Pre question 2: You can create a new file and write to it, wish is expesnive if done alot. You can also keep the same file and just have a point to its memory locatio and directly write to that
+• Pre question 3: This can speed up futer fuzzing and give you instead into the process
+• Post question 1: I used pythons mmap libary to write directly to the files location in memory
+• Post question 2: Make processes parrell and clean up a lot of the code
+• Post question 3: Yes those offer valuble infomation as to how the applcation works and what to advoid
+• Post question 4: It depends. They are likely to find crashes, but they are more likely to be the same crash as opposed to a unqiue crash which is what you care about
+• Source code: include in zip bundle

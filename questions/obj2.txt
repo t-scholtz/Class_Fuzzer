@@ -1,0 +1,9 @@
+• Crash-inducing test case: PaSD_{(\$H
+• Average number of test cases: 1236906.66
+• Std. Dev. number of test cases: 1588373.32
+• Average wall clock time: 1098.11
+• Std. Dev. wall clock time: 1410.39
+• Pre question 1: High variation. The chance for a particular test to find a crash is constant. So its just about getting luckly.
+• Post question 1: A lot. One run took signifcally longer than the other 2. Likely due to how chance dependant the system is
+• Post question 2: A single run hides what effect luck played on that run, which might either make a fuzzer look better or worth than it actually is.
+• Post question 3: Ideally you use some sort of states calcuation that can you give a probaility of signifcance for you result

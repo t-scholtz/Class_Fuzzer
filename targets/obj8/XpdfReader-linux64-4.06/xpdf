@@ -1,0 +1,5 @@
+#!/bin/sh
+
+d=`dirname $0`
+export LD_LIBRARY_PATH=$d/lib:$LD_LIBRARY_PATH
+exec $d/xpdf.bin "$@"

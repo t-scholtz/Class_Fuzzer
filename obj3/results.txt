@@ -1,0 +1,11 @@
+=== Fuzzing Results ===
+
+Number of test cases: 423700
+Wall clock time: 390.40 seconds
+Crashes found: 1
+
+=== Crash Details ===
+
+Crash-inducing test case: PaS
+Found at iteration: 423700
+Time to find: 390.40 seconds

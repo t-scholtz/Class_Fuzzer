@@ -27,7 +27,7 @@ class Fuzzer:
         print("[*] Setting up fuzzer...")
         self.start_time = time.time()
         
-    def generate_test_case(self, length):
+    def generate_test_case(self):
         """
         Generate a random test case of specified length.
         
@@ -37,7 +37,8 @@ class Fuzzer:
         Returns:
             bytes: Random byte string
         """
-        random_string = random.randbytes(length)
+        length = 3
+        random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
         return random_string
     
     def execute_target(self, test_case):
@@ -53,12 +54,10 @@ class Fuzzer:
         start = time.time()
         
         try:
-            test_case_str = test_case.decode('latin-1')  # latin-1 preserves all byte values
-            
             proc = subprocess.run(
-                [self.target_path, test_case_str],
-                capture_output=True,  # Capture stdout/stderr
-                timeout=5,  # Prevent hanging (1 second timeout per execution)
+                [self.target_path, test_case],
+                capture_output=True,
+                timeout=5
             )
             duration = time.time() - start
             crashed = proc.returncode < 0 or proc.returncode == 139 
@@ -130,15 +129,15 @@ class Fuzzer:
         
         print("[*] Starting fuzzing loop...")
 
-        test_length = 1
+        
         while time.time() - self.start_time < self.timeout:
+            self.runs += 1
+
             # Generate test case
-            test_case = self.generate_test_case(test_length)
+            test_case = self.generate_test_case()
             self.test_cases_generated += 1
-            print(test_case)
             # Execute target
             result = self.execute_target(test_case)
-            
             # Analyze result
             crash_found = self.analyze_result(test_case, result)
             
@@ -148,20 +147,14 @@ class Fuzzer:
                 break
             
             # Progress indicator every 1000000 iterations
-            if self.runs % 1000 == 0:
+            if self.runs % 10000 == 0:
                 elapsed = time.time() - self.start_time
                 rate = self.runs / elapsed if elapsed > 0 else 0
                 print(f"[*] Iterations: {self.runs} | "
                       f"Rate: {rate:.2f}/sec | "
                       f"Time: {elapsed:.2f}s")
             
-            if test_length < 4 and self.runs % 100 == 0:
-                test_length += 1
-            
-            self.runs += 1
-        
         self.end_time = time.time()
-        
         return self.get_summary()
     
     def get_summary(self):
