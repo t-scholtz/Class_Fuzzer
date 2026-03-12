@@ -1,3 +1,7 @@
+"""
+mutator.py
+Simputer mutator class
+"""
 import random
 
 class Mutator:
@@ -7,6 +11,6 @@ class Mutator:
 
         data = bytearray(test_case)   # make it mutable
         i = random.randrange(len(data))
-        data[i] = random.randrange(48 , 123)
+        data[i] = data[i] = random.randint(0, 255) #return a random byte
 
         return bytes(data)

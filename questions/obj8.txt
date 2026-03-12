@@ -1,0 +1,7 @@
+• Total number of possible edges: 12,345
+• Average number of edges covered: 12,345
+• Average number of test cases executed: 1,234,567
+• Std. Dev. of the number of test cases executed: 123,456
+• Std. Dev. of the number of edges covered: 123,456
+• Post question 1: A sentence or two.
+• Post question 2: A sentence or two

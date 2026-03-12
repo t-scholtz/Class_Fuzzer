@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+fuzz.py
 Core fuzzing logic and infrastructure.
 """
 import subprocess
@@ -13,13 +14,12 @@ from pathlib import Path
 from seedPool import  Pool
 from mutator import Mutator
 
-SIZE = 4096
+SIZE = 1000000 #Max input size - change as needed
 
 class Fuzzer:
-    def __init__(self, target_path, max_length=10, timeout=3600):
+    def __init__(self, target_path, timeout=3600):
         """Initialize the fuzzer."""
         self.target_path = target_path
-        self.max_length = max_length
         self.timeout = timeout
         
         # Statistics
@@ -50,31 +50,16 @@ class Fuzzer:
         self.mm = mmap.mmap(self.file.fileno(), SIZE, access=mmap.ACCESS_WRITE)
 
     def load_seeds(self, seeds_dir: str = "seeds"):
-    
+        print("[*] Loading Seeds")
         for path in Path(seeds_dir).iterdir():
             if path.is_file():
-                test_case = path.read_bytes()
-                self.write_input(test_case)
                 # Execute target
-                result = self.execute_target()
+                result = self.execute_target(path)
                 # Analyze result | assume seeds don't crash
-                self.analyze_result(test_case ,result)
+                self.analyze_result(path.read_bytes() ,result)
+        print(f"\t\t-Coverage score after loading seeds is {self.pool.get_coverage():.2f}%")
         
-    def generate_test_case(self):
-        """
-        Generate a random test case of specified length.
-        
-        Args:
-            length: Length of the test case to generate
-            
-        Returns:
-            bytes: Random byte string
-        """
-        length = 3
-        random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
-        return random_string
-    
-    def execute_target(self):
+    def execute_target(self, input:str = "input.txt"):
         """
         Execute the target binary with the given test case.
         
@@ -87,10 +72,21 @@ class Fuzzer:
         start = time.time()
         
         try:
-            argv = [self.target_path, "input.txt"]
+            argv = [self.target_path, str(input), "/dev/null"]
             env = os.environ.copy()
 
-            pid = os.posix_spawn(self.target_path, argv, env)
+            # Open /dev/null once for redirecting output
+            devnull_fd = os.open("/dev/null", os.O_WRONLY)
+
+            # File actions: redirect both stdout and stderr to /dev/null
+            file_actions = [
+                (os.POSIX_SPAWN_OPEN, 1, "/dev/null", os.O_WRONLY, 0),   # stdout -> /dev/null
+                (os.POSIX_SPAWN_OPEN, 2, "/dev/null", os.O_WRONLY, 0),   # stderr -> /dev/null
+            ]
+
+            pid = os.posix_spawn(self.target_path, argv, env, file_actions=file_actions)
+            os.close(devnull_fd)
+
             _, status = os.waitpid(pid, 0)
             # Decode exit status
             if os.WIFSIGNALED(status):
@@ -157,11 +153,12 @@ class Fuzzer:
     
     def write_input(self, input):
         self.mm.seek(0)
-        self.mm.write(input)
+        data = input[:SIZE]
+        self.mm.write(data)
         #terminate with empty / don't really need but doesn't hurt
         self.mm.write(b"\x00" * (SIZE - len(input)))
 
-    
+
     def run(self):
         """
         Main fuzzing loop.
@@ -170,7 +167,13 @@ class Fuzzer:
             dict: Summary of fuzzing results
         """
         self.setup()
-        self.pool = Pool()
+
+        #Get number of edges in target | run application on blank input
+        self.execute_target()
+        edge_count = os.path.getsize("coverage.bin")
+        print(f"\t\t-Number of edges in application is {edge_count}")
+        self.pool = Pool(edge_count)
+
         self.mutator = Mutator()
         self.load_seeds()
 
@@ -221,7 +224,8 @@ class Fuzzer:
             'runs': self.runs,
             'crashes_found': len(self.crashes_found),
             'total_time': total_time,
-            'crash_details': self.crashes_found
+            'crash_details': self.crashes_found,
+            'coverage': f"{self.pool.get_coverage():.2f}"
         }
         
         return summary
@@ -239,7 +243,8 @@ class Fuzzer:
             f.write("=== Fuzzing Results ===\n\n")
             f.write(f"Number of test cases: {summary['runs']}\n")
             f.write(f"Wall clock time: {summary['total_time']:.2f} seconds\n")
-            f.write(f"Crashes found: {summary['crashes_found']}\n\n")
+            f.write(f"Crashes found: {summary['crashes_found']}\n")
+            f.write(f"Coverage: {summary['coverage']}%\n\n")
             
             if summary['crash_details']:
                 f.write("=== Crash Details ===\n")
@@ -252,3 +257,4 @@ class Fuzzer:
         print(f"Test cases generated: {summary['runs']}")
         print(f"Total time: {summary['total_time']:.2f} seconds")
         print(f"Crashes found: {summary['crashes_found']}")
+        print(f"Coverage: {summary['coverage']}%")

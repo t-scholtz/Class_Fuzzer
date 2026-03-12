@@ -1,11 +1,7 @@
 === Fuzzing Results ===
 
-Number of test cases: 444
-Wall clock time: 2.04 seconds
-Crashes found: 1
+Number of test cases: 671
+Wall clock time: 10.00 seconds
+Crashes found: 0
+Coverage: 14.57%
 
-=== Crash Details ===
-
-Crash-inducing test case: b'qaM'
-Found at iteration: 444
-Time to find: 2.04 seconds

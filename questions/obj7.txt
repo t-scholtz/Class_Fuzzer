@@ -11,4 +11,3 @@
 • Post question 2: Make processes parrell and clean up a lot of the code
 • Post question 3: Yes those offer valuble infomation as to how the applcation works and what to advoid
 • Post question 4: It depends. They are likely to find crashes, but they are more likely to be the same crash as opposed to a unqiue crash which is what you care about
-• Source code: include in zip bundle
