@@ -41,16 +41,19 @@ class Fuzzer:
         print("[*] Setting up fuzzer...")
         os.system("rm *.bin")
         self.start_time = time.time()
+        # Clean and recreate output directories
         for dir_name in ["output", "interesting"]:
             if os.path.exists(dir_name):
                 shutil.rmtree(dir_name)
             os.makedirs(dir_name)
-        #create file for later MMIO interactions
+
+        # Create file for later mmap interactions
         with open("input.txt", "wb") as f:
             f.truncate(SIZE)
 
-        # Step 3: mmap once
+        self.file = open("input.txt", "r+b")
         self.mm = mmap.mmap(self.file.fileno(), SIZE, access=mmap.ACCESS_WRITE)
+
 
     def load_seeds(self, seeds_dir: str = "seeds"):
         print("[*] Loading Seeds")
