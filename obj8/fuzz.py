@@ -5,8 +5,7 @@ Core fuzzing logic and infrastructure.
 """
 import subprocess
 import time
-import random
-import string
+import shutil
 import os
 import mmap
 from pathlib import Path
@@ -40,12 +39,16 @@ class Fuzzer:
     def setup(self):
         """Setup the fuzzer before running."""
         print("[*] Setting up fuzzer...")
+        os.system("rm *.bin")
         self.start_time = time.time()
+        for dir_name in ["output", "interesting"]:
+            if os.path.exists(dir_name):
+                shutil.rmtree(dir_name)
+            os.makedirs(dir_name)
         #create file for later MMIO interactions
         with open("input.txt", "wb") as f:
             f.truncate(SIZE)
 
-        self.file = open("input.txt", "r+b")
         # Step 3: mmap once
         self.mm = mmap.mmap(self.file.fileno(), SIZE, access=mmap.ACCESS_WRITE)
 
