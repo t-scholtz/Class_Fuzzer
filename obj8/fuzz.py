@@ -175,18 +175,17 @@ class Fuzzer:
             dict: Summary of fuzzing results
         """
         self.setup()
-        
+        try:
+            posix_ipc.unlink_shared_memory("/fuzz_coverage")
+        except posix_ipc.ExistentialError:
+            pass
+
         # Bootstrap run to discover edge count (uses file fallback in harness)
         self.execute_target()
         edge_count = os.path.getsize("coverage.bin")
         print(f"\t\t- Number of edges in application: {edge_count}")
 
         # Set up shared memory for all subsequent runs
-        try:
-            posix_ipc.unlink_shared_memory("/fuzz_coverage")
-        except posix_ipc.ExistentialError:
-            pass
-
         shm = posix_ipc.SharedMemory(
             "/fuzz_coverage",
             flags=posix_ipc.O_CREAT,
