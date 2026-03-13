@@ -1,20 +1,17 @@
 import numpy as np
+import mmap
 import random
 import os
 
 class Pool:
-    def __init__(self, edge_count: int = 65536):
+    def __init__(self, shared_mem: mmap.mmap, edge_count: int = 65536,):
         self.pool = []
         self.test_count = 0
         self.edge_count = edge_count  # store for use in filter
         self.coverage = np.zeros(edge_count, dtype=np.uint8)
         self.cov_buffer = np.zeros(edge_count, dtype=np.uint8)  # reusable buffer
-        self.cov_file = None  # opened once by fuzzer after first run
+        self.cov_mm = shared_mem
         os.makedirs("interesting", exist_ok=True)
-
-    def open_coverage_file(self, path: str):
-        """Call once from fuzzer setup after first run creates coverage.bin"""
-        self.cov_file = open(path, "rb")
 
     def add_seed(self, test):
         self.pool.append(test)
@@ -33,8 +30,8 @@ class Pool:
 
     def filter(self, test: bytes):
         # Read into reusable buffer — no new allocation
-        self.cov_file.seek(0)
-        raw = self.cov_file.read(self.edge_count)
+        self.cov_mm.seek(0)
+        raw = self.cov_mm.read(self.edge_count)
 
         # Guard against unexpected size
         if len(raw) != self.edge_count:

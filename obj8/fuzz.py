@@ -9,6 +9,8 @@ import shutil
 import os
 import mmap
 from pathlib import Path
+import posix_ipc
+import mmap
 
 from seedPool import  Pool
 from mutator import Mutator
@@ -35,6 +37,7 @@ class Fuzzer:
         # File Access
         self.file = None
         self.mm = None
+        self.shared_mem = None
         
     def setup(self):
         """Setup the fuzzer before running."""
@@ -174,11 +177,28 @@ class Fuzzer:
         """
         self.setup()
 
-        #Get number of edges in target | run application on blank input
+        # Bootstrap run to discover edge count (uses file fallback in harness)
         self.execute_target()
         edge_count = os.path.getsize("coverage.bin")
-        print(f"\t\t-Number of edges in application is {edge_count}")
-        self.pool = Pool(edge_count)
+        print(f"\t\t- Number of edges in application: {edge_count}")
+
+        # Set up shared memory for all subsequent runs
+        try:
+            posix_ipc.unlink_shared_memory("/fuzz_coverage")
+        except posix_ipc.ExistentialError:
+            pass
+
+        shm = posix_ipc.SharedMemory(
+            "/fuzz_coverage",
+            flags=posix_ipc.O_CREAT,
+            mode=0o666,
+            size=edge_count
+        )
+
+        self.shared_mem = mmap.mmap(shm.fd, edge_count, access=mmap.ACCESS_READ)
+        shm.close_fd() 
+
+        self.pool = Pool(self.shared_mem, edge_count)
 
         self.mutator = Mutator(SIZE)
         self.load_seeds()
@@ -210,6 +230,12 @@ class Fuzzer:
                       f"Time: {elapsed:.2f}s")
             
         self.end_time = time.time()
+
+        self.shared_mem.close()
+        try:
+            posix_ipc.unlink_shared_memory("/fuzz_coverage")
+        except posix_ipc.ExistentialError:
+            pass
 
         #Close files
         self.mm.close()
