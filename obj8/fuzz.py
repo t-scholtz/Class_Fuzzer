@@ -175,7 +175,7 @@ class Fuzzer:
             dict: Summary of fuzzing results
         """
         self.setup()
-
+        
         # Bootstrap run to discover edge count (uses file fallback in harness)
         self.execute_target()
         edge_count = os.path.getsize("coverage.bin")
