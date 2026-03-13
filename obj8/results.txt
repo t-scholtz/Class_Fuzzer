@@ -1,7 +1,0 @@
-=== Fuzzing Results ===
-
-Number of test cases: 386
-Wall clock time: 10.01 seconds
-Crashes found: 0
-Coverage: 14.26%
-

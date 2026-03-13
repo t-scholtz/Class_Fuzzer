@@ -180,7 +180,7 @@ class Fuzzer:
         print(f"\t\t-Number of edges in application is {edge_count}")
         self.pool = Pool(edge_count)
 
-        self.mutator = Mutator()
+        self.mutator = Mutator(SIZE)
         self.load_seeds()
 
         while time.time() - self.start_time < self.timeout:
@@ -231,7 +231,8 @@ class Fuzzer:
             'crashes_found': len(self.crashes_found),
             'total_time': total_time,
             'crash_details': self.crashes_found,
-            'coverage': f"{self.pool.get_coverage():.2f}"
+            'coverage': f"{self.pool.get_coverage():.2f}",
+            'edge_count': f"{self.pool.get_edges_found()}"
         }
         
         return summary
@@ -250,6 +251,7 @@ class Fuzzer:
             f.write(f"Number of test cases: {summary['runs']}\n")
             f.write(f"Wall clock time: {summary['total_time']:.2f} seconds\n")
             f.write(f"Crashes found: {summary['crashes_found']}\n")
+            f.write(f"Edges found: {summary['edge_count']}\n")
             f.write(f"Coverage: {summary['coverage']}%\n\n")
             
             if summary['crash_details']:
@@ -263,4 +265,5 @@ class Fuzzer:
         print(f"Test cases generated: {summary['runs']}")
         print(f"Total time: {summary['total_time']:.2f} seconds")
         print(f"Crashes found: {summary['crashes_found']}")
+        print(f"Edges found: {summary['edge_count']}")
         print(f"Coverage: {summary['coverage']}%")
