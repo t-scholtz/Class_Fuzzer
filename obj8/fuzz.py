@@ -42,7 +42,6 @@ class Fuzzer:
     def setup(self):
         """Setup the fuzzer before running."""
         print("[*] Setting up fuzzer...")
-        os.system("rm *.bin")
         self.start_time = time.time()
         # Clean and recreate output directories
         for dir_name in ["output", "interesting"]:
@@ -157,7 +156,7 @@ class Fuzzer:
             return True
         
         # Check bit map if new edge found
-        self.pool.filter("coverage.bin", test_case)
+        self.pool.filter(test_case)
         return False
     
     def write_input(self, input):
