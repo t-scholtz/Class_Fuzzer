@@ -1,0 +1,7 @@
+Number of executed test cases in 24 hours: 1,234,567
+Test case throughput relative to Objective 9: 1.54 times
+Pre question 1: Lower 
+Pre question 2: The state can get corrupted and then you don't acctauly test the target.
+Post question 1: A sentence or two.
+Post question 2: A sentence or two.
+Post question 3: A sentence or two.

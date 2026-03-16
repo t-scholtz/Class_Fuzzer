@@ -1,0 +1,7 @@
+The compiler output for your fuzzer’s release build.
+The output of cppcheck.
+The output of scan-build.
+The output of valgrind when your fuzzer runs for 1 minute.
+The output of ASAN and UBSAN when your fuzzer runs for 1 minute.
+The output of Cloc.
+Source code: include in zip bundle

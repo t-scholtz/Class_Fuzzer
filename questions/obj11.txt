@@ -1,0 +1,9 @@
+• Number of executed test cases in 24 hours: xxx
+• Test case throughput relative to Objective 10: xxx
+• Pre question 1: My instinct is that it is compute bound, based on the fact I get a higher perfromance locally (2x) than I do on rloing - but of course it could be a different reasource I have more of locally than on rlogin
+• Pre question 2: Running parrell targets in batches might help. Where if you setup a pipeline so that each reasource is used in parrell no one reasouce would enterily hold up the system
+• Post question 1: In part 8 I was getting for a 30 sec test "27.57s user 4.39s system 106% cpu 30.109 total" with "Edges found: 4193 Coverage: 15.00%" where at this point i get "2.50s user 0.10s system 8% cpu 30.100 total" with "Edges found: 4051 Coverage: 14.59%" So I mostly free up waiting time. 
+• Post question 2: The target would not completey reset its state. It should be fine since a good application shouldn't make assumptions about the state, but it would be messy
+• Post question 3: There would be a memory explosion, and in the good case the OS would kill in the bad case you would crash your system
+• Post question 4: So long as every test resets the global varibles it should be fine but it could get corrupted over time
+• Post question 5: Run test in parrell, increase exection time, decrase wait time.

@@ -176,7 +176,7 @@ class Fuzzer:
         """
         self.setup()
         try:
-            posix_ipc.unlink_shared_memory("/fuzz_coverage")
+            posix_ipc.unlink_shared_memory("/fuzz_coverage_8")
         except posix_ipc.ExistentialError:
             pass
 
@@ -187,7 +187,7 @@ class Fuzzer:
 
         # Set up shared memory for all subsequent runs
         shm = posix_ipc.SharedMemory(
-            "/fuzz_coverage",
+            "/fuzz_coverage_8",
             flags=posix_ipc.O_CREAT,
             mode=0o666,
             size=edge_count
@@ -231,7 +231,7 @@ class Fuzzer:
 
         self.shared_mem.close()
         try:
-            posix_ipc.unlink_shared_memory("/fuzz_coverage")
+            posix_ipc.unlink_shared_memory("/fuzz_coverage_8")
         except posix_ipc.ExistentialError:
             pass
 

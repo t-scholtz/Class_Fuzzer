@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#define SHM_NAME "/fuzz_coverage"
+#define SHM_NAME "/fuzz_coverage_8"
 
 static uint8_t *cov_start  = nullptr;
 static uint8_t *cov_end    = nullptr;
