@@ -1,7 +1,7 @@
-• Total number of possible edges: 12,345
-• Average number of edges covered: 12,345
-• Average number of test cases executed: 1,234,567
-• Std. Dev. of the number of test cases executed: 123,456
-• Std. Dev. of the number of edges covered: 123,456
-• Post question 1: A sentence or two.
-• Post question 2: A sentence or two
+Total number of possible edges: 28080
+Average number of edges covered: 
+Average number of test cases executed:
+Std. Dev. of the number of test cases executed: 
+Std. Dev. of the number of edges covered: 
+Post question 1: Its an actual application. The size of the bitmap/number of edes will be proportional to the size and number of paths in the application.
+Post question 2: I think the biggest challenge will the be fuzzer. Chaning a single byte at a time with pdfs causing invalids pdfs, and does not really follow its format or understands the input well.

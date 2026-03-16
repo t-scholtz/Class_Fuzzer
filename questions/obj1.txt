@@ -1,9 +1,9 @@
-• Crash-inducing test case: 
-• Number of test cases: 
-• Wall clock time: 
-• Pre question 1: The search size is so large, that as long as we are randomly generating testcase, the chance to randomly generating the same test twice is close to 0
-• Pre question 2: It does not really matter if duplicate test cases are generated, although duplicates do slightly reduce runtime efficiency. However, the chance of this happening is close to zero. 
-• Pre question 3: I use Python’s subprocess module and pipe byte strings directly into the application.
-• Post question 1: It relies entirely on luck. Its very inefficent, and the search space is to large the the chance of stumbiling on a crash is close to 0
-• Post question 2: Try to target my generation. Use some sort of system to generate tests that are more likely to find a crash
-• Post question 3: Extract metrics form each execution and use that to find better tests
+Crash-inducing test case: 
+Number of test cases: 
+Wall clock time: 
+Pre question 1: The search size is so large, that as long as we are randomly generating testcase, the chance to randomly generating the same test twice is close to 0
+Pre question 2: It does not really matter if duplicate test cases are generated, although duplicates do slightly reduce runtime efficiency. However, the chance of this happening is close to zero. 
+Pre question 3: I use Python’s subprocess module and pipe byte strings directly into the application.
+Post question 1: It relies entirely on luck. Its very inefficent, and the search space is to large the the chance of stumbiling on a crash is close to 0
+Post question 2: Try to target my generation. Use some sort of system to generate tests that are more likely to find a crash
+Post question 3: Extract metrics form each execution and use that to find better tests

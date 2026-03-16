@@ -1,0 +1,9 @@
+Number of executed test cases in 24 hours: 1,234,567
+Test case throughput relative to Objective 8: 1.54 times
+Pre question 1: It adds a level of complexity and thread mangement into the whole process.
+Pre question 2: Ideally the number of tests run per second should go up, but it depends on where the bottleneck is. Is it in the OS and memory copy or more the CPU intructions per second running.
+Post question 1: A sentence or two.
+Post question 2: A sentence or two.
+Post question 3: A sentence or two.
+Post question 4: A sentence or two.
+Post question 5: A sentence or two.

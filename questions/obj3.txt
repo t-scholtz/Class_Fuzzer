@@ -1,14 +1,14 @@
 Crash-inducing test case: PaS
-• Average number of test cases: 295147.8
-• Average number of test cases relative to Objective 2: 0.238 times
-• Std. Dev. In number of test cases: 401417.9893
-• Std. dev. in number of test cases relative to Objective 2: 0.252 times
-• Average wall clock time: 280.922 seconds
-• Average wall clock time relative to Objective 2: 0.255 times
-• Std. Dev. in wall clock time: 382.9076805 seconds
-• Std. Dev. in wall clock time relative to Objective 2: 0.271 times
-• Pre question 1: It should speed up the test generation process and its now a fixed size and reduce set size to chose from
-• Pre question 2: It speed it up quite a bit as we have drastically shrinked the search space
-• Post question 1: There is a much smaller search space, so it quicker to find the test, and since its smaller theres less deviation
-• Post question 2: You get a much higher performance at the cost of not finding input realted/formatting related bugs
-• Post question 3: Have more targatted test generation
+Average number of test cases: 295147.8
+Average number of test cases relative to Objective 2: 0.238 times
+Std. Dev. In number of test cases: 401417.9893
+Std. dev. in number of test cases relative to Objective 2: 0.252 times
+Average wall clock time: 280.922 seconds
+Average wall clock time relative to Objective 2: 0.255 times
+Std. Dev. in wall clock time: 382.9076805 seconds
+Std. Dev. in wall clock time relative to Objective 2: 0.271 times
+Pre question 1: It should speed up the test generation process and its now a fixed size and reduce set size to chose from
+Pre question 2: It speed it up quite a bit as we have drastically shrinked the search space
+Post question 1: There is a much smaller search space, so it quicker to find the test, and since its smaller theres less deviation
+Post question 2: You get a much higher performance at the cost of not finding input realted/formatting related bugs
+Post question 3: Have more targatted test generation
